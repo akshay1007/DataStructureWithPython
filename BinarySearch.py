@@ -1,32 +1,20 @@
-def test_location(card, query, mid):
-    mid_number = card[mid]
-    print("mid:", mid, ", mid_number:", mid_number, 'query : ', query )
-    if mid_number == query:
-        if mid-1 >= 0 and card[mid-1] == query:
-            return 'left'
-        else:
-            return 'found'
-    elif mid_number < query:
-        return 'right'
-    else:
-        return 'left'
-
-
-def locate_card(cards, query):
+def binary_search(card, query):
+    card.sort()
     lo = 0
-    hi = len(cards) - 1
+    hi = len(card) - 1
 
     while lo <= hi:
-        print("lo:", lo, ", hi:", hi)
-        mid = (lo + hi) // 2
-        result = test_location(cards, query, mid)
-
-        if result == 'found':
+        mid = (lo + hi) //2
+        # check if querry is present at mid
+        if card[mid] == query:
             return mid
-        elif result == 'left':
-            hi = mid - 1
-        elif result == 'right':
+        # if query is greater then mid then move to righ
+        if card[mid] < query:
             lo = mid + 1
+        # if query is smaller then mid move to left
+        else:
+            hi = mid - 1
+
     return -1
 
 
@@ -64,6 +52,14 @@ if __name__ == '__main__':
             },
             'output': 2
 
+        },
+        {
+            'name': '5. Bigger input',
+            'input': {
+                'card': list(range(10000000, 0, -1)),
+                'query': 9999999
+            },
+            'output': 9999998
         }
     ]
 
@@ -72,7 +68,7 @@ if __name__ == '__main__':
         query = ele.get("input").get("query")
         output = ele.get("output")
         name = ele.get("name")
-        test_output = locate_card(card, query)
+        test_output = binary_search(card, query)
         # locate_card(card, query)
         print(card,query,output,name)
         print('Test Case : ', name)

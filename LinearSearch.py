@@ -58,7 +58,18 @@ if __name__ == '__main__':
             },
             'output': 3
 
-        }
+        },
+        {
+            # Duplicate element in cards
+            'input': {
+                'card': list(range(10000000,0,-1)),
+                'query': 2
+            },
+            'output': 9999998
+
+        },
+
+
     ]
     for ele in tests:
         print('Test Case output  : ', locate_card(ele.get("input").get("card"), ele.get("input").get("query")),
